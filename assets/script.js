@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const mensajes = document.getElementById("mensajes");
 
     form.addEventListener("submit", function (e) {
-        e.preventDefault();
 
         mensajes.innerHTML = "";
         mensajes.className = "";
@@ -44,24 +43,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (errores.length > 0) {
+            e.preventDefault(); // SOLO bloquea si hay errores
+
             mensajes.classList.add("error");
             errores.forEach(function (error) {
                 mensajes.innerHTML += "<p>" + error + "</p>";
             });
+
         } else {
+            // DEJA QUE EL FORMULARIO SE ENVÍE A PHP
+
             mensajes.classList.add("exito");
             mensajes.innerHTML = `
-                <h3>Reservación confirmada</h3>
-                <p><strong>Nombre:</strong> ${nombre}</p>
-                <p><strong>Contacto:</strong> ${contacto}</p>
-                <p><strong>Fecha:</strong> ${fecha}</p>
-                <p><strong>Personas:</strong> ${personas}</p>
-                <p><strong>Comentarios:</strong> ${comentarios}</p>
+                <h3>Reservación válida ✔</h3>
+                <p>Enviando datos...</p>
             `;
-
-            form.reset();
         }
 
     });
 
 });
+
